@@ -1,7 +1,7 @@
 package com.busatod.graphics.raytracing;
 
-import main.java.com.busatod.graphics.app.GraphicsApplication;
-import main.java.com.busatod.graphics.app.Settings;
+import com.busatod.graphics.app.GraphicsApplication;
+import com.busatod.graphics.app.Settings;
 
 public class RayTracer extends GraphicsApplication {
 
