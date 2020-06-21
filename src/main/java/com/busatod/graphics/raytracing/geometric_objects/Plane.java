@@ -8,8 +8,8 @@ public class Plane extends GeometricObject
 {
 	private static final float EPS = 0.001f;
 	
-	private Point3D a;    // point through which plane passes
-	private Normal n;    // normal to the plane
+	private final Point3D a;    // point through which plane passes
+	private final Normal  n;    // normal to the plane
 	
 	public Plane(Point3D a, Normal n)
 	{
@@ -23,14 +23,14 @@ public class Plane extends GeometricObject
 	}
 	
 	@Override
-	public boolean hit(Ray ray, HitPoint hit_point)
+	public boolean hit(Ray ray, HitPoint hitPoint)
 	{
 		float t = a.sub(ray.o).dot(n) / (ray.d.dot(n));
 		
 		if (t > EPS) {
-			hit_point.tmin = t;
-			hit_point.sr.normal = n;
-			hit_point.sr.world_hit_point = ray.o.add(ray.d.scale(t));
+			hitPoint.tmin = t;
+			hitPoint.sr.normal = n;
+			hitPoint.sr.world_hit_point = ray.o.add(ray.d.scale(t));
 			return (true);
 		}
 		

@@ -5,10 +5,10 @@ public class Ray
 	public Point3D  o; // origin
 	public Vector3D d; // direction
 	
-	public Ray()
+	public Ray(Point3D origin, Vector3D direction)
 	{
-		this.o = new Point3D(0);
-		this.d = new Vector3D(0, 0, 1);
+		this.o = origin;
+		this.d = direction;
 	}
 	
 	public Ray(Ray ray)

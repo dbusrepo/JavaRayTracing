@@ -28,12 +28,12 @@ public class Tracer
 		this.world = world;
 	}
 	
-	public RGBColor trace_ray(Ray ray)
+	public RGBColor traceRay(Ray ray)
 	{
 		return Constants.BLACK;
 	}
 	
-	public RGBColor trace_ray(Ray ray, int depth)
+	public RGBColor traceRay(Ray ray, int depth)
 	{
 		return Constants.BLACK;
 	}

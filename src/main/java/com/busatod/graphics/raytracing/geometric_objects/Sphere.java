@@ -51,7 +51,7 @@ public class Sphere extends GeometricObject
 	}
 	
 	@Override
-	public boolean hit(Ray ray, HitPoint hit_point)
+	public boolean hit(Ray ray, HitPoint hitPoint)
 	{
 		Vector3D temp = ray.o.sub(center);
 		float a = ray.d.dot(ray.d);
@@ -67,18 +67,18 @@ public class Sphere extends GeometricObject
 			float t = (-b - e) / denom;    // smaller root
 			
 			if (t > EPS) {
-				hit_point.tmin = t;
-				hit_point.sr.normal = new Normal(temp.add(ray.d.scale(t)).scale(1 / radius));
-				hit_point.sr.world_hit_point = ray.o.add(ray.d.scale(t));
+				hitPoint.tmin = t;
+				hitPoint.sr.normal = new Normal(temp.add(ray.d.scale(t)).scale(1 / radius));
+				hitPoint.sr.world_hit_point = ray.o.add(ray.d.scale(t));
 				return (true);
 			}
 			
 			t = (-b + e) / denom;    // larger root
 			
 			if (t > EPS) {
-				hit_point.tmin = t;
-				hit_point.sr.normal = new Normal(temp.add(ray.d.scale(t)).scale(1 / radius));
-				hit_point.sr.world_hit_point = ray.o.add(ray.d.scale(t));
+				hitPoint.tmin = t;
+				hitPoint.sr.normal = new Normal(temp.add(ray.d.scale(t)).scale(1 / radius));
+				hitPoint.sr.world_hit_point = ray.o.add(ray.d.scale(t));
 				return true;
 			}
 		}

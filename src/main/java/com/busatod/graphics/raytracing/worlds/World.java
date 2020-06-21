@@ -1,36 +1,51 @@
 package com.busatod.graphics.raytracing.worlds;
 
+import com.busatod.graphics.raytracing.RayTracing;
+import com.busatod.graphics.raytracing.cameras.Camera;
 import com.busatod.graphics.raytracing.geometric_objects.GeometricObject;
 import com.busatod.graphics.raytracing.tracers.Tracer;
 import com.busatod.graphics.raytracing.utilities.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class World
+public abstract class World
 {
-	private ViewPlane view_plane;
-	private RGBColor background_color;
-	private Tracer tracer;
-	private List<GeometricObject> objects;
+	protected RayTracing            rayTracing;
+	protected Camera                camera;
+	protected ViewPlane             viewPlane;
+	protected RGBColor              backgroundColor;
+	protected Tracer                tracer;
+	protected List<GeometricObject> objects = new ArrayList<>();
 	
-	public ViewPlane getView_plane()
+	public World(RayTracing rayTracing)
 	{
-		return view_plane;
+		this.rayTracing = rayTracing;
 	}
 	
-	public void setView_plane(ViewPlane view_plane)
+	public RGBColor getBackgroundColor()
 	{
-		this.view_plane = view_plane;
+		return backgroundColor;
 	}
 	
-	public RGBColor getBackground_color()
+	public void setBackgroundColor(RGBColor backgroundColor)
 	{
-		return background_color;
+		this.backgroundColor = backgroundColor;
 	}
 	
-	public void setBackground_color(RGBColor background_color)
+	public ViewPlane getViewPlane()
 	{
-		this.background_color = background_color;
+		return viewPlane;
+	}
+	
+	public Camera getCamera()
+	{
+		return camera;
+	}
+	
+	public Tracer getTracer()
+	{
+		return tracer;
 	}
 	
 	public void addObject(GeometricObject object)
@@ -38,17 +53,17 @@ public class World
 		objects.add(object);
 	}
 	
-	public ShadeRec hit_objects(Ray ray, Float tmin_) // tmin_ = kHugeValue
+	public ShadeRec hitObjects(Ray ray, Float tmin_) // tmin_ = kHugeValue
 	{
 		ShadeRec sr = new ShadeRec(this);
-		GeometricObject.HitPoint hit_point = new GeometricObject.HitPoint();
+		GeometricObject.HitPoint hitPoint = new GeometricObject.HitPoint(sr);
 		
 		float tmin = tmin_ != null ? tmin_ : Constants.INF;
 		
 		for (GeometricObject obj : objects) {
-			if (obj.hit(ray, hit_point) && (hit_point.tmin < tmin)) {
+			if (obj.hit(ray, hitPoint) && (hitPoint.tmin < tmin)) {
 				sr.hit_an_object = true;
-				tmin = hit_point.tmin;
+				tmin = hitPoint.tmin;
 				sr.color = obj.getColor();
 			}
 		}
@@ -56,12 +71,21 @@ public class World
 		return sr;
 	}
 	
-	public void build()
-	{
+	public abstract void build(int hres, int vres);
 	
+	public void renderScene()
+	{
+		camera.renderScene(this);
 	}
 	
-	public void render_scene()
+	public void displayPixel(int row, int col, RGBColor pixelColor)
 	{
+		//have to start from max y coordinate to convert to screen coordinates
+		int x = col;
+		int y = viewPlane.getVres() - row - 1;
+		int r = (int) (pixelColor.r * 255);
+		int g = (int) (pixelColor.g * 255);
+		int b = (int) (pixelColor.b * 255);
+		rayTracing.setPixel(x, y, r, g, b);
 	}
 }

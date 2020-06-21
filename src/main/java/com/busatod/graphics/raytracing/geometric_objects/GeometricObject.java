@@ -10,6 +10,11 @@ public abstract class GeometricObject
 	{
 		public float    tmin;
 		public ShadeRec sr;
+		
+		public HitPoint(ShadeRec sr)
+		{
+			this.sr = sr;
+		}
 	}
 	
 	protected RGBColor color;    // only used for Bare Bones ray tracing
@@ -26,10 +31,10 @@ public abstract class GeometricObject
 	
 	public void setColor(float r, float g, float b)
 	{
-//		this.color.se
+		setColor(new RGBColor(r, g, b));
 	}
 	
-	public abstract boolean hit(Ray ray, HitPoint hit_point);
+	public abstract boolean hit(Ray ray, HitPoint hitPoint);
 	
 }
 

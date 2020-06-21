@@ -2,29 +2,27 @@ package com.busatod.graphics.raytracing.utilities;
 
 public class ViewPlane
 {
-	int   hres;                                       // horizontal image resolution
-	int   vres;                                       // vertical image resolution
-	float s;                                          // pixel size
+	int hres;                                       // horizontal image resolution
+	int vres;                                       // vertical image resolution
+	int pixelSize;                                  // pixel size
 	private float gamma;                              // gamma correction factor
-	private float inv_gamma;                          // the inverse of the gamma correction factor
+	private float invGamma;                          // the inverse of the gamma correction factor
 	
-	public ViewPlane()
+	public ViewPlane(int hres, int vres, int ps, float gamma)
 	{
-		this.hres = 400;
-		this.vres = 400;
-		this.s = 1;
-		this.gamma = 1.0f;
-		this.inv_gamma = 1.0f / this.gamma;
-		// ...
+		this.hres = hres;
+		this.vres = vres;
+		this.pixelSize = ps;
+		setGamma(gamma);
 	}
 	
 	public ViewPlane(ViewPlane vp)
 	{
 		this.hres = vp.hres;
 		this.vres = vp.vres;
-		this.s = vp.s;
+		this.pixelSize = vp.pixelSize;
 		this.gamma = vp.gamma;
-		this.inv_gamma = vp.inv_gamma;
+		this.invGamma = vp.invGamma;
 	}
 	
 	public float getGamma()
@@ -35,11 +33,41 @@ public class ViewPlane
 	public void setGamma(float gamma)
 	{
 		this.gamma = gamma;
-		this.inv_gamma = 1.0f / gamma;
+		this.invGamma = 1.0f / gamma;
 	}
 	
-	public float getInv_gamma()
+	public float getInvGamma()
 	{
-		return inv_gamma;
+		return invGamma;
+	}
+	
+	public int getHres()
+	{
+		return hres;
+	}
+	
+	public void setHres(int hres)
+	{
+		this.hres = hres;
+	}
+	
+	public int getVres()
+	{
+		return vres;
+	}
+	
+	public void setVres(int vres)
+	{
+		this.vres = vres;
+	}
+	
+	public int getPixelSize()
+	{
+		return pixelSize;
+	}
+	
+	public void setPixelSize(int pixelSize)
+	{
+		this.pixelSize = pixelSize;
 	}
 }

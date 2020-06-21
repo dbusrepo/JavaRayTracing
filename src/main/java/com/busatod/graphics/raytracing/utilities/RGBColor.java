@@ -2,7 +2,7 @@ package com.busatod.graphics.raytracing.utilities;
 
 public class RGBColor
 {
-	float r, g, b;
+	public float r, g, b;
 	
 	public RGBColor()
 	{

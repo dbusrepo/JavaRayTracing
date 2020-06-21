@@ -8,7 +8,7 @@ public class ShadeRec
 	public Point3D  world_hit_point;    // world coordinates of hit point on untransformed object (used for texture transformations)
 	public Normal   normal;                // normal at hit point
 	public RGBColor color;                // used in the Chapter 3 only
-	public World world;                    // world reference
+	public World    world;                    // world reference
 	
 	public ShadeRec(World w)
 	{
