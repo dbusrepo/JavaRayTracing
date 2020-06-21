@@ -16,9 +16,9 @@ public class Normal
 	
 	public Normal(float nx, float ny, float nz)
 	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.x = nx;
+		this.y = ny;
+		this.z = nz;
 	}
 	
 	public Normal(Normal n)
