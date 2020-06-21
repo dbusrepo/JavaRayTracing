@@ -2,7 +2,7 @@ package com.busatod.graphics.raytracing;
 
 import com.busatod.graphics.app.GraphicsApplication;
 import com.busatod.graphics.app.Settings;
-import com.busatod.graphics.raytracing.worlds.MultipleObjects;
+import com.busatod.graphics.raytracing.worlds.SingleSphere;
 import com.busatod.graphics.raytracing.worlds.World;
 
 public class RayTracing extends GraphicsApplication
@@ -23,7 +23,8 @@ public class RayTracing extends GraphicsApplication
 	@Override
 	protected void appInit()
 	{
-		world = new MultipleObjects(this);
+//		world = new MultipleObjects(this);
+		world = new SingleSphere(this);
 		world.build(settings.width, settings.height);
 	}
 	
