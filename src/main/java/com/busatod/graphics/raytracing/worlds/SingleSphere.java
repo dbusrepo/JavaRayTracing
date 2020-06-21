@@ -19,7 +19,7 @@ public class SingleSphere extends World
 	public void build(int hres, int vres)
 	{
 		camera = new OrthographicCamera();
-		viewPlane = new ViewPlane(hres, vres, 1, 1);
+		viewPlane = new ViewPlane(hres, vres, 1.0f, 1);
 		backgroundColor = Constants.BLACK;
 		tracer = new MultipleObjects(this);
 		

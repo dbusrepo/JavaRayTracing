@@ -2,13 +2,13 @@ package com.busatod.graphics.raytracing.utilities;
 
 public class ViewPlane
 {
-	int hres;                                       // horizontal image resolution
-	int vres;                                       // vertical image resolution
-	int pixelSize;                                  // pixel size
+	int   hres;                                       // horizontal image resolution
+	int   vres;                                       // vertical image resolution
+	float pixelSize;                                  // pixel size
 	private float gamma;                              // gamma correction factor
 	private float invGamma;                          // the inverse of the gamma correction factor
 	
-	public ViewPlane(int hres, int vres, int ps, float gamma)
+	public ViewPlane(int hres, int vres, float ps, float gamma)
 	{
 		this.hres = hres;
 		this.vres = vres;
@@ -61,12 +61,12 @@ public class ViewPlane
 		this.vres = vres;
 	}
 	
-	public int getPixelSize()
+	public float getPixelSize()
 	{
 		return pixelSize;
 	}
 	
-	public void setPixelSize(int pixelSize)
+	public void setPixelSize(float pixelSize)
 	{
 		this.pixelSize = pixelSize;
 	}

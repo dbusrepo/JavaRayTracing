@@ -17,7 +17,7 @@ public class OrthographicCamera extends Camera
 		float zw = 100.0f; // hardwired in
 		Ray ray = new Ray(new Point3D(0), new Vector3D(0, 0, -1));
 		ViewPlane vp = w.getViewPlane();
-		int ps = vp.getPixelSize();
+		float ps = vp.getPixelSize();
 		int hres = vp.getHres();
 		int vres = vp.getVres();
 		Point3D o = new Point3D();
