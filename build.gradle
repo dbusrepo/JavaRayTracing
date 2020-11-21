@@ -23,7 +23,7 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'com.busatod.graphics.raytracing.RayTracing'
+mainClassName = 'raytracing.Main'
 
 jar {
     manifest {
