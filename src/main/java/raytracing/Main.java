@@ -31,7 +31,7 @@ public class Main extends GraphicsApplication {
 	}
 
 	@Override
-	protected void appDraw() {
+	protected void draw() {
 		drawBackground();
 		world.renderScene();
 	}
