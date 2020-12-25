@@ -1,5 +1,7 @@
 package raytracing;
 
+import java.awt.Graphics2D;
+
 import base.graphics.app.GraphicsApplication;
 import base.graphics.app.Settings;
 import raytracing.worlds.SingleSphere;
@@ -31,8 +33,8 @@ public class Main extends GraphicsApplication {
 	}
 
 	@Override
-	protected void draw() {
-		drawBackground();
+	protected void appDrawImage(Graphics2D g) {
+		drawImageBackground(g);
 		world.renderScene();
 	}
 
