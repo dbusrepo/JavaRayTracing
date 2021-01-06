@@ -19,9 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 @SuppressWarnings("serial")
-class GraphicsFrame extends JFrame implements WindowListener {
+class GraphFrame extends JFrame implements WindowListener {
 
-	private GraphicsApplication graphApp;
+	private GraphApp graphApp;
 	private Settings settings;
 	private GraphicsDevice graphDevice;
 	// private BufferStrategy bufferStrategy;
@@ -29,7 +29,7 @@ class GraphicsFrame extends JFrame implements WindowListener {
 	private int accelMemory; // for reporting accl. memory usage
 	private Canvas canvas;
 
-	public GraphicsFrame(GraphicsApplication graphApp) {
+	public GraphFrame(GraphApp graphApp) {
 		super(graphApp.getGraphicsConfiguration());
 		graphApp.setGraphFrame(this);
 		this.graphApp = graphApp;
@@ -38,16 +38,17 @@ class GraphicsFrame extends JFrame implements WindowListener {
 		if (settings.showCapabilities) {
 			reportCapabilities();
 		}
+		init();
 	}
 
-	protected void init() {
+	private void init() {
 //		setDefaultLookAndFeelDecorated(true);
 		setTitle(settings.title);
 		setExtendedState(JFrame.NORMAL);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // JFrame.DISPOSE_ON_CLOSE
 		if (settings.showMenu) {
 			setUndecorated(true); // no title bar, borders if there is a menu
-			JMenuBar menuBar = graphApp.appBuildMenu();
+			JMenuBar menuBar = graphApp.buildMenuApp();
 			FrameDragListener frameDragListener = new FrameDragListener(this); // to drag using the menu bar
 			menuBar.addMouseListener(frameDragListener);
 			menuBar.addMouseMotionListener(frameDragListener);
@@ -77,7 +78,7 @@ class GraphicsFrame extends JFrame implements WindowListener {
 			}
 		}
 		canvas = new Canvas();
-		canvas.setSize(settings.width, settings.height);
+		canvas.setSize(settings.winWidth, settings.winHeight);
 		canvas.setBackground(Color.BLACK);
 		canvas.setIgnoreRepaint(true);
 		add(canvas);
@@ -102,7 +103,7 @@ class GraphicsFrame extends JFrame implements WindowListener {
 //				}
 //			});
 		} catch (Exception ex) {
-			System.out.println("Error while creating buffer strategy");
+			System.err.println("Error while creating buffer strategy");
 			System.exit(0);
 		}
 		try { // sleep to give time for the buffer strategy to be carried out
@@ -158,12 +159,12 @@ class GraphicsFrame extends JFrame implements WindowListener {
 			System.out.println("Display mode changing not supported");
 			return false;
 		}
-		DisplayMode dm = new DisplayMode(settings.width, settings.height, settings.bitDepth,
+		DisplayMode dm = new DisplayMode(settings.winWidth, settings.winHeight, settings.bitDepth,
 				DisplayMode.REFRESH_RATE_UNKNOWN); // any
 													// refresh
 													// rate
 		if (!isDisplayModeAvailable(dm)) {
-			System.out.println("Display mode (" + settings.width + "," + settings.height + "," + settings.bitDepth
+			System.out.println("Display mode (" + settings.winWidth + "," + settings.winHeight + "," + settings.bitDepth
 					+ ") not available. Finding the first compatible:");
 			DisplayMode compatibleMd = findFirstCompatibleMode(new DisplayMode[] { dm });
 			if (compatibleMd == null) {
@@ -270,27 +271,27 @@ class GraphicsFrame extends JFrame implements WindowListener {
 
 	@Override
 	public void windowClosing(java.awt.event.WindowEvent evt) {
-		graphApp.stopApp();
+		graphApp.stop();
 	}
 
 	@Override
 	public void windowIconified(java.awt.event.WindowEvent evt) {
-		graphApp.pauseApp();
+		graphApp.pause();
 	}
 
 	@Override
 	public void windowDeiconified(java.awt.event.WindowEvent evt) {
-		graphApp.resumeApp();
+		graphApp.resume();
 	}
 
 	@Override
 	public void windowActivated(java.awt.event.WindowEvent evt) {
-		graphApp.resumeApp();
+		graphApp.resume();
 	}
 
 	@Override
 	public void windowDeactivated(java.awt.event.WindowEvent evt) {
-		graphApp.pauseApp();
+		graphApp.pause();
 	}
 
 	@Override
